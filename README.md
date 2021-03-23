@@ -1,6 +1,6 @@
 # Tämä on README
 
-Täällä taas häröillään :DDDDD
+Täällä taas häröillään :DDD
 
 Tässä ei pitäisi olla mitään :D TÄMÄ ONKIN **LIHAVOITU**
 
