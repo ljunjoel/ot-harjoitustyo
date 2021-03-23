@@ -1,5 +1,7 @@
 # Tämä on README
 
+Täällä taas häröillään :DDDDD
+
 Tässä ei pitäisi olla mitään :D TÄMÄ ONKIN **LIHAVOITU**
 
 ## Tehtävät
