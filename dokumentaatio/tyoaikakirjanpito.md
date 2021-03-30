@@ -1,3 +1,3 @@
 | päivä | aika | mitä tein  |
 | :----:|:-----| :-----|
-| 30.3. | 1   | tehty vaatimusmäärittely |
+| 30.3. | 15 min   | tehty vaatimusmäärittely |
