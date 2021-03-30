@@ -25,4 +25,4 @@ Sovelluksen tarkoitus on mahdollistaa keräilyesineiden, lähtökohtaisesti ker�
 Mikäli aikaa riittää, pyritään saamaan seuraavia ominaisuuksia mukaan järjestelmään:
 - Käyttäjä pystyy tekemään tarkennettuja hakuja tallentamiensa artikkelien joukosta
 - Käyttäjä pystyy vertaamaan omaa kokoelmaansa valmiiseen listaan, jolloin selviää, paljonko hänen vielä tarvitsee kerätä
-  - Vertailun idea on lähtökohtaisesti ns. decklistien vertaaminen omaan kokoelmaan, jolloin saa selville, mitä pakan korteista jo omistaa
+  - Vertailun idea on lähtökohtaisesti ns. [decklistien](https://magic.gg/decklists) vertaaminen omaan kokoelmaan, jolloin saa selville, mitä pakan korteista jo omistaa
