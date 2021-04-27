@@ -1,6 +1,20 @@
 # README
 
 # CollectionHelper
+CollectionHelper -sovelluksen avulla käyttäjät voivat pitää kutia omista kokoelmistaan. Olivatpa ne sitten mitä tahansa! (in English below)
+
+## Miten ohjelma toimii?
+Tällä hetkellä ohjelman voi ajaa komentoriviltä komennolla java -jar CollectionHelper.jar. Jos haluat ajaa ohjelman ennemmin NetBeans:illa, joutunet käyttämään Clean and Build -toimintoa pariin kertaan ennen kuin ohjelma suostuu suorittamaan. Perimmäistä syytä tälle en ole vielä keksinyt, enkä siten myöskään ratkaissut ongelmaa.
+
+Kun ohjelma aukeaa, se kysyy salasanaa. Anna sille salasana "salasana". Näin pääset käsiksi kaikkiin CollectionHelper:in toiminnalisuuksiin. Kirjautumisen jälkeen eteesi avautuu liuta ominaisuuksia, joiden avulla voit seurata kokoelmaasi. On hyvä huomata, että tällä hetkellä ohjelma unohtaa kaiken, mitä sille on annettu, sulkemisen jälkeen.
+
+Pari muuta huomiota:
+
+Haku-nappi käyttää samoja tekstikenttiä kuin lisääminen ja vähentäminen. Hakeminen onnistuu vain tarkalla nimellä
+
+Haku- sekä Tulosta kaikki -toimintojen tulostukset tulevat konsoliin.
+
+# CollectionHelper (in English)
 CollectionHelper is a software designed to aid with keeping tabs on your collection. Whatever it might be!
 
 ## How does it work?
