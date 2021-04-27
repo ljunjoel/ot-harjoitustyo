@@ -15,6 +15,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
+import collectionhelper.domain.Collection;
 
 /**
  *
@@ -25,7 +26,7 @@ public class MainUI extends Application{
     @Override
     public void start(Stage stage) throws Exception {
        
-        Label instructionText = new Label("Please type your username");
+        Label instructionText = new Label("Please type your password");
         PasswordField usernameField = new PasswordField();
         Button loginButton = new Button("Login");
         Label errorMessage = new Label("");
@@ -46,16 +47,19 @@ public class MainUI extends Application{
         Scene loginScene = new Scene(loginPane);
         
         Button logoutButton = new Button("Logout");
-        Label tervetuloaTeksti = new Label("Welcome!");
+        Label welcomeText = new Label("Welcome!");
 
-        StackPane welcomePane = new StackPane();
-        welcomePane.setPrefSize(300, 180);
-        welcomePane.getChildren().add(tervetuloaTeksti);
-        welcomePane.setAlignment(Pos.TOP_CENTER);
-        welcomePane.getChildren().add(logoutButton);
-        welcomePane.setAlignment(Pos.BOTTOM_CENTER);
+        GridPane userPane = new GridPane();
+        userPane.setPrefSize(300, 180);
+        userPane.add(welcomeText, 0, 0);
+        userPane.add(logoutButton, 0, 3);
+        
+        userPane.setAlignment(Pos.CENTER);
+        userPane.setVgap(10);
+        userPane.setHgap(10);
+        userPane.setPadding(new Insets(20, 20, 20, 20));
 
-        Scene welcomeScene = new Scene(welcomePane);
+        Scene welcomeScene = new Scene(userPane);
         
         loginButton.setOnAction((event) -> {
           if (!usernameField.getText().trim().equals("salasana")) {
