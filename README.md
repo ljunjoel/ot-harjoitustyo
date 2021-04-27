@@ -8,7 +8,7 @@ At present the software works by running the java -jar CollectionHelper.jar comm
 
 When CollectionHelper starts, you are asked to give a password. Give the password "salasana" to access the functionalities of CollectionHelper. Inside you will find tools for keeping up with your collection. Unfortunately, at present the software will wipe out its records when closed. 
 
-A couple of more remarks: 
+A couple of other remarks: 
 
 The search button uses the same name field as adding and reducing amounts. At present you can only search by exact name.
 
