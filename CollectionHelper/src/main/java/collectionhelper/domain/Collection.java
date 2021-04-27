@@ -46,6 +46,6 @@ public class Collection {
     
     public void printItem(String name) {
         String value = this.collection.get(name).toString();
-        System.out.println(name + " Quantity: " + value);
+        System.out.println("Name: " + name + " Quantity: " + value);
     }
 }
