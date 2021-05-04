@@ -9,12 +9,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- *
- * @author joel
+ * Mock database until the real one is implemented.
+ * 
  */
 public class Collection {
     Map<String, Integer> collection = new HashMap<>();
-    
+    /**
+     * Adds the given quantity to given item
+     * @param name
+     * @param quantity 
+     */
     public void addItem(String name, int quantity) {
         if (this.collection.keySet().contains(name)) {
             int old = this.collection.get(name);
@@ -23,11 +27,18 @@ public class Collection {
             this.collection.put(name, quantity);
         }
     }
-    
+    /**
+     * Completely removes item with said name
+     * @param name 
+     */
     public void removeItem(String name) {
         this.collection.remove(name);
     }
-    
+    /**
+     * Reduces the given item by given amount. If the item goes to zero, removes it all together.
+     * @param name
+     * @param quantity 
+     */
     public void reduceItem(String name, int quantity) {
         int old = this.collection.get(name);
         if (old - quantity == 0) {
@@ -36,14 +47,19 @@ public class Collection {
             this.collection.replace(name, old - quantity);
         }
     }
-    
+    /**
+     * Prints out all items and their quantities.
+     */
     public void printAll() {
         for (String name: this.collection.keySet()) {
             String key = name;
             printItem(key);
         }
     }
-    
+    /**
+     * Prints the name and quantity of a specific item.
+     * @param name 
+     */
     public void printItem(String name) {
         String value = this.collection.get(name).toString();
         System.out.println("Name: " + name + " Quantity: " + value);

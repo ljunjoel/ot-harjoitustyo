@@ -16,7 +16,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.PasswordField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.Region;
+import javafx.scene.text.Text;
 import collectionhelper.domain.Collection;
+import collectionhelper.domain.User;
 
 /**
  *
@@ -24,21 +27,35 @@ import collectionhelper.domain.Collection;
  */
 public class MainUI extends Application{
     Collection myCollection = new Collection();
+    User myUsers = new User();
     
     @Override
     public void start(Stage stage) throws Exception {
        
-        Label instructionText = new Label("Please type your password");
-        PasswordField usernameField = new PasswordField();
+        Label instructionText = new Label("Please type your username and password");
+        Text usernameText = new Text("Username: ");
+        TextField usernameField = new TextField();
+        Text passwordText = new Text("Password: ");
+        PasswordField passwordField = new PasswordField();
         Button loginButton = new Button("Login");
+        Button logoutButton = new Button("Logout");
+        Button goToCreationButton = new Button ("Create User!");
+        Button cancelButton = new Button("Cancel");
         Label errorMessage = new Label("");
+        
+        /*errorMessage.setMinWidth(Region.USE_PREF_SIZE);
+        errorMessage.setMaxWidth(Region.USE_PREF_SIZE);*/
         
         GridPane loginPane = new GridPane();
 
         loginPane.add(instructionText, 0, 0);
-        loginPane.add(usernameField, 0, 1);
-        loginPane.add(loginButton, 0, 2);
-        loginPane.add(errorMessage, 0, 3);
+        loginPane.add(usernameText, 0, 1);
+        loginPane.add(usernameField, 1, 1);
+        loginPane.add(passwordText, 0, 2);
+        loginPane.add(passwordField, 1, 2);
+        loginPane.add(loginButton, 1, 3);
+        loginPane.add(goToCreationButton, 2, 3);
+        loginPane.add(errorMessage, 1, 0);
         
         loginPane.setPrefSize(800, 600);
         loginPane.setAlignment(Pos.CENTER);
@@ -48,7 +65,30 @@ public class MainUI extends Application{
         
         Scene loginScene = new Scene(loginPane);
         
-        Button logoutButton = new Button("Logout");
+        Label creationInstructionText = new Label("Please enter the username and password you would like to use.");
+        TextField createUsernameText = new TextField("");
+        TextField createPasswordText = new TextField("");
+        Button createUserButton = new Button("Create User!");
+        
+        GridPane createUserPane = new GridPane();
+        
+        createUserPane.add(creationInstructionText, 0, 0);
+        createUserPane.add(usernameText, 0, 1);
+        createUserPane.add(createUsernameText, 1, 1);
+        createUserPane.add(passwordText, 0, 2);
+        createUserPane.add(createPasswordText, 1, 2);
+        createUserPane.add(createUserButton, 1, 3);
+        createUserPane.add(errorMessage, 1, 0);
+        createUserPane.add(cancelButton, 2, 3);
+        
+        createUserPane.setPrefSize(800, 600);
+        createUserPane.setAlignment(Pos.CENTER);
+        createUserPane.setVgap(10);
+        createUserPane.setHgap(10);
+        createUserPane.setPadding(new Insets(20, 20, 20, 20));
+        
+        Scene createUserScene = new Scene(createUserPane);
+        
         Label welcomeText = new Label("Welcome!");
         TextField articleName = new TextField("");
         TextField articleQuantity = new TextField("");
@@ -78,8 +118,14 @@ public class MainUI extends Application{
         Scene welcomeScene = new Scene(userPane);
         
         loginButton.setOnAction((event) -> {
-          if (!usernameField.getText().trim().equals("salasana")) {
-              errorMessage.setText("There's no such user!");
+          String username = usernameField.getText().trim();
+          String password = passwordField.getText().trim();
+          if(!(myUsers.getUser(username))) {
+              errorMessage.setText("There is no such user");
+              return;
+          }
+          if(!(password.equals(myUsers.getPassword(username)))) {
+              errorMessage.setText("Have you forgotten your password? Because that isn't it");
               return;
           }
           stage.setScene(welcomeScene);
@@ -144,6 +190,29 @@ public class MainUI extends Application{
         
         printAllButton.setOnAction ((event) -> {
             myCollection.printAll();
+        });
+        
+        createUserButton.setOnAction ((event) -> {
+           String username = createUsernameText.getText().trim();
+           String password = createPasswordText.getText().trim();
+           if(!(username.length() > 2)) {
+               errorMessage.setText("That username is too short");
+               return;
+           }
+           if(!(password.length() > 2)) {
+               errorMessage.setText("That password is way too short! Make it at least 3 characters long. C'mon!");
+               return;
+           }
+           myUsers.addUser(username, password);
+           stage.setScene(loginScene);
+        });
+        
+        goToCreationButton.setOnAction ((event) -> {
+            stage.setScene(createUserScene);
+        });
+        
+        cancelButton.setOnAction((event) -> {
+           stage.setScene(loginScene); 
         });
         
         stage.setScene(loginScene);
