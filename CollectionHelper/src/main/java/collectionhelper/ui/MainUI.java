@@ -137,7 +137,7 @@ public class MainUI extends Application{
             try {
                 myCollection.printItem(name);
             } catch (NullPointerException e) {
-                errorMessage.setText("That item does not listed yet!");
+                errorMessage.setText("That item is not listed yet!");
             }
             
         });
