@@ -43,6 +43,16 @@ Ohjelman voi ajaa komentoriviltä kommennolla
 ```
 mvn compile exec:java -Dexec.mainClass=collectionhelper.ui.Main
 ```
+### Testaus
+Testit voi suorittaa komennolla
+```
+mvn test
+```
+Testikattavuusraportti luodaan komennolla
+```
+mvn jacoco:report
+```
+Kattavuusraporttia voi tarkastella avaamalla selaimella tiedosto _target/site/jacoco/index.html_
 ### Suoritettavan jarin generointi
 
 Komento
