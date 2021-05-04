@@ -43,3 +43,10 @@ Ohjelman voi ajaa komentoriviltä kommennolla
 ```
 mvn compile exec:java -Dexec.mainClass=collectionhelper.ui.Main
 ```
+### Suoritettavan jarin generointi
+
+Komento
+```
+mvn package
+```
+generoi hakemistoon _target_ suoritettavan jar-tiedoston _CollectionHelper-1.0-SNAPSHOT.jar_
