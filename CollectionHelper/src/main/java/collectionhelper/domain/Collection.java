@@ -16,9 +16,9 @@ public class Collection {
     Map<String, Integer> collection = new HashMap<>();
     
     public void addItem(String name, int quantity) {
-        if(this.collection.keySet().contains(name)) {
+        if (this.collection.keySet().contains(name)) {
             int old = this.collection.get(name);
-            this.collection.replace(name, old+1);
+            this.collection.replace(name, old + 1);
         } else {
             this.collection.put(name, quantity);
         }
@@ -30,15 +30,15 @@ public class Collection {
     
     public void reduceItem(String name, int quantity) {
         int old = this.collection.get(name);
-        if(old-quantity == 0) {
+        if (old - quantity == 0) {
             removeItem(name);
         } else {
-            this.collection.replace(name, old-quantity);
+            this.collection.replace(name, old - quantity);
         }
     }
     
     public void printAll() {
-        for(String name: this.collection.keySet()) {
+        for (String name: this.collection.keySet()) {
             String key = name;
             printItem(key);
         }
