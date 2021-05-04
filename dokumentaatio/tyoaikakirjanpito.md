@@ -4,4 +4,5 @@
 | 13.4. | 5 h | JavaFX-säätöä |
 | 20.4. | 1 h | JavaFX saatu toimimaan |
 | 27.4. | 4 h | Koodattu eläimenä ja etsitty ratkaisua NetBeansin punaisuuteen |
-| 1.5. | 1h | SQLiten ihmettelyä |
+| 1.5. | 1 h | SQLiten ihmettelyä |
+| 4.5. | 7 h | Yritystä saada tekstit toimimaan JFX:ssä, lisätä ominaisuusksia, testejä ym. |
