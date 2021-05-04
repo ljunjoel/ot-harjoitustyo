@@ -134,7 +134,12 @@ public class MainUI extends Application{
                 errorMessage.setText("Name missing!");
                 return;
             }
-            myCollection.printItem(name);
+            try {
+                myCollection.printItem(name);
+            } catch (NullPointerException e) {
+                errorMessage.setText("That item does not listed yet!");
+            }
+            
         });
         
         printAllButton.setOnAction ((event) -> {

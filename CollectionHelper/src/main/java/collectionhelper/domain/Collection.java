@@ -18,7 +18,7 @@ public class Collection {
     public void addItem(String name, int quantity) {
         if (this.collection.keySet().contains(name)) {
             int old = this.collection.get(name);
-            this.collection.replace(name, old + 1);
+            this.collection.replace(name, old + quantity);
         } else {
             this.collection.put(name, quantity);
         }
