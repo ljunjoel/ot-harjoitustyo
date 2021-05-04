@@ -29,11 +29,17 @@ The search button uses the same name field as adding and reducing amounts. At pr
 The search and print all functions will print to console.
 
 
-## Documentation
+## Dokumentaatio
 [Vaatimusmäärittely](https://github.com/ljunjoel/ot-harjoitustyo/blob/master/dokumentaatio/maarittelydokumentti.md)
 
 [Työaikakirjanpito](https://github.com/ljunjoel/ot-harjoitustyo/blob/master/dokumentaatio/tyoaikakirjanpito.md)
 
 
-## Releases
-[Release 1](https://github.com/ljunjoel/ot-harjoitustyo/tree/viikko5)
+## Releaset
+[Viikko 5](https://github.com/ljunjoel/ot-harjoitustyo/tree/viikko5)
+
+## Komentorivikomennot
+Ohjelman voi ajaa komentoriviltä kommennolla
+```
+mvn compile exec:java -Dexec.mainClass=collectionhelper.ui.Main
+```
