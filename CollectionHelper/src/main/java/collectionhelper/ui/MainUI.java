@@ -33,9 +33,11 @@ public class MainUI extends Application{
     public void start(Stage stage) throws Exception {
        
         Label instructionText = new Label("Please type your username and password");
-        Text usernameText = new Text("Username: ");
+        Text usernameTextLogin = new Text("Username: ");
+        Text usernameTextCreation = new Text("Username: ");
         TextField usernameField = new TextField();
-        Text passwordText = new Text("Password: ");
+        Text passwordTextLogin = new Text("Password: ");
+        Text passwordTextCreation = new Text("Password: ");
         PasswordField passwordField = new PasswordField();
         Button loginButton = new Button("Login");
         Button logoutButton = new Button("Logout");
@@ -49,9 +51,9 @@ public class MainUI extends Application{
         GridPane loginPane = new GridPane();
 
         loginPane.add(instructionText, 0, 0);
-        loginPane.add(usernameText, 0, 1);
+        loginPane.add(usernameTextLogin, 0, 1);
         loginPane.add(usernameField, 1, 1);
-        loginPane.add(passwordText, 0, 2);
+        loginPane.add(passwordTextLogin, 0, 2);
         loginPane.add(passwordField, 1, 2);
         loginPane.add(loginButton, 1, 3);
         loginPane.add(goToCreationButton, 2, 3);
@@ -67,16 +69,16 @@ public class MainUI extends Application{
         
         Label creationInstructionText = new Label("Please enter the username and password you would like to use.");
         TextField createUsernameText = new TextField("");
-        TextField createPasswordText = new TextField("");
+        PasswordField createPasswordField = new PasswordField();
         Button createUserButton = new Button("Create User!");
         
         GridPane createUserPane = new GridPane();
         
         createUserPane.add(creationInstructionText, 0, 0);
-        createUserPane.add(usernameText, 0, 1);
+        createUserPane.add(usernameTextCreation, 0, 1);
         createUserPane.add(createUsernameText, 1, 1);
-        createUserPane.add(passwordText, 0, 2);
-        createUserPane.add(createPasswordText, 1, 2);
+        createUserPane.add(passwordTextCreation, 0, 2);
+        createUserPane.add(createPasswordField, 1, 2);
         createUserPane.add(createUserButton, 1, 3);
         createUserPane.add(errorMessage, 1, 0);
         createUserPane.add(cancelButton, 2, 3);
@@ -194,7 +196,7 @@ public class MainUI extends Application{
         
         createUserButton.setOnAction ((event) -> {
            String username = createUsernameText.getText().trim();
-           String password = createPasswordText.getText().trim();
+           String password = createPasswordField.getText().trim();
            if(!(username.length() > 2)) {
                errorMessage.setText("That username is too short");
                return;
