@@ -6,3 +6,4 @@
 | 27.4. | 4 h | Koodattu eläimenä ja etsitty ratkaisua NetBeansin punaisuuteen |
 | 1.5. | 1 h | SQLiten ihmettelyä |
 | 4.5. | 7 h | Yritystä saada tekstit toimimaan JFX:ssä, lisätä ominaisuusksia, testejä ym. |
+| 12.5. | 4 h | Teksti hoidettu, palattu ihmettelemään SQLiten ihmeellistä maailmaa |
