@@ -18,6 +18,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.Region;
 import javafx.scene.text.Text;
+import java.sql.*;
 import collectionhelper.domain.Collection;
 import collectionhelper.domain.User;
 
@@ -43,10 +44,9 @@ public class MainUI extends Application{
         Button logoutButton = new Button("Logout");
         Button goToCreationButton = new Button ("Create User!");
         Button cancelButton = new Button("Cancel");
-        Label errorMessage = new Label("");
-        
-        /*errorMessage.setMinWidth(Region.USE_PREF_SIZE);
-        errorMessage.setMaxWidth(Region.USE_PREF_SIZE);*/
+        Label errorMessageLogin = new Label("");
+        Label errorMessageCreation = new Label("");
+        Label errorMessageUsing = new Label("");
         
         GridPane loginPane = new GridPane();
 
@@ -57,9 +57,9 @@ public class MainUI extends Application{
         loginPane.add(passwordField, 1, 2);
         loginPane.add(loginButton, 1, 3);
         loginPane.add(goToCreationButton, 2, 3);
-        loginPane.add(errorMessage, 1, 0);
+        loginPane.add(errorMessageLogin, 1, 0);
         
-        loginPane.setPrefSize(800, 600);
+        loginPane.setPrefSize(1024, 620);
         loginPane.setAlignment(Pos.CENTER);
         loginPane.setVgap(10);
         loginPane.setHgap(10);
@@ -67,7 +67,7 @@ public class MainUI extends Application{
         
         Scene loginScene = new Scene(loginPane);
         
-        Label creationInstructionText = new Label("Please enter the username and password you would like to use.");
+        Label creationInstructionText = new Label("Please enter the username and password you would like to use. Min 3 characters!");
         TextField createUsernameText = new TextField("");
         PasswordField createPasswordField = new PasswordField();
         Button createUserButton = new Button("Create User!");
@@ -80,10 +80,10 @@ public class MainUI extends Application{
         createUserPane.add(passwordTextCreation, 0, 2);
         createUserPane.add(createPasswordField, 1, 2);
         createUserPane.add(createUserButton, 1, 3);
-        createUserPane.add(errorMessage, 1, 0);
+        createUserPane.add(errorMessageCreation, 1, 0);
         createUserPane.add(cancelButton, 2, 3);
         
-        createUserPane.setPrefSize(800, 600);
+        createUserPane.setPrefSize(1024, 620);
         createUserPane.setAlignment(Pos.CENTER);
         createUserPane.setVgap(10);
         createUserPane.setHgap(10);
@@ -106,7 +106,7 @@ public class MainUI extends Application{
         userPane.add(articleName, 0, 1);
         userPane.add(articleQuantity, 0, 2);
         userPane.add(logoutButton, 0, 3);
-        userPane.add(errorMessage, 1, 0);
+        userPane.add(errorMessageUsing, 1, 0);
         userPane.add(addButton, 1, 1);
         userPane.add(reduceButton, 1, 2);
         userPane.add(printAllButton, 1, 3);
@@ -123,11 +123,11 @@ public class MainUI extends Application{
           String username = usernameField.getText().trim();
           String password = passwordField.getText().trim();
           if(!(myUsers.getUser(username))) {
-              errorMessage.setText("There is no such user");
+              errorMessageLogin.setText("There is no such user");
               return;
           }
           if(!(password.equals(myUsers.getPassword(username)))) {
-              errorMessage.setText("Have you forgotten your password? Because that isn't it");
+              errorMessageLogin.setText("Have you forgotten your password? Because that isn't it");
               return;
           }
           stage.setScene(welcomeScene);
@@ -144,17 +144,17 @@ public class MainUI extends Application{
             try {
                 quantity = Integer.parseInt(quantityString);
             } catch (NumberFormatException e) {
-                errorMessage.setText("Quantity is not a number!");
+                errorMessageUsing.setText("Quantity is not a number!");
                 return;
             }
             
             if(name.equals("")) {
-                errorMessage.setText("Name missing!");
+                errorMessageUsing.setText("Name missing!");
                 return;
             }
             
             myCollection.addItem(name, quantity);
-            errorMessage.setText("Item "+ name + " increased by "+quantity);
+            errorMessageUsing.setText("Item "+ name + " increased by "+quantity);
         });
         
         reduceButton.setOnAction((event) -> {
@@ -164,28 +164,28 @@ public class MainUI extends Application{
             try {
                 quantity = Integer.parseInt(quantityString);
             } catch (NumberFormatException e) {
-                errorMessage.setText("Quantity is not a number!");
+                errorMessageUsing.setText("Quantity is not a number!");
                 return;
             }
             
             if(name.equals("")) {
-                errorMessage.setText("Name missing!");
+                errorMessageUsing.setText("Name missing!");
                 return;
             }
             myCollection.reduceItem(name, quantity);
-            errorMessage.setText("Item "+ name + " reduced by "+quantity);
+            errorMessageUsing.setText("Item "+ name + " reduced by "+quantity);
         });
         
         printSomeButton.setOnAction ((event) -> {
             String name = articleName.getText().trim();
             if(name.equals("")) {
-                errorMessage.setText("Name missing!");
+                errorMessageUsing.setText("Name missing!");
                 return;
             }
             try {
                 myCollection.printItem(name);
             } catch (NullPointerException e) {
-                errorMessage.setText("That item is not listed yet!");
+                errorMessageUsing.setText("That item is not listed yet!");
             }
             
         });
@@ -198,11 +198,11 @@ public class MainUI extends Application{
            String username = createUsernameText.getText().trim();
            String password = createPasswordField.getText().trim();
            if(!(username.length() > 2)) {
-               errorMessage.setText("That username is too short");
+               errorMessageCreation.setText("That username is too short");
                return;
            }
            if(!(password.length() > 2)) {
-               errorMessage.setText("That password is way too short! Make it at least 3 characters long. C'mon!");
+               errorMessageCreation.setText("That password is way too short! C'mon!");
                return;
            }
            myUsers.addUser(username, password);
