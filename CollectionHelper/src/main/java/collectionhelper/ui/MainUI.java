@@ -19,17 +19,12 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.Region;
 import javafx.scene.text.Text;
 import java.sql.*;
-import collectionhelper.domain.Collection;
-import collectionhelper.domain.User;
 
 /**
  *
  * @author joel
  */
 public class MainUI extends Application{
-    Collection myCollection = new Collection();
-    User myUsers = new User();
-    
     @Override
     public void start(Stage stage) throws Exception {
        
@@ -122,14 +117,14 @@ public class MainUI extends Application{
         loginButton.setOnAction((event) -> {
           String username = usernameField.getText().trim();
           String password = passwordField.getText().trim();
-          if(!(myUsers.getUser(username))) {
+          /*if(!(myUsers.getUser(username))) {
               errorMessageLogin.setText("There is no such user");
               return;
           }
           if(!(password.equals(myUsers.getPassword(username)))) {
               errorMessageLogin.setText("Have you forgotten your password? Because that isn't it");
               return;
-          }
+          }*/
           stage.setScene(welcomeScene);
         });
         
@@ -153,7 +148,6 @@ public class MainUI extends Application{
                 return;
             }
             
-            myCollection.addItem(name, quantity);
             errorMessageUsing.setText("Item "+ name + " increased by "+quantity);
         });
         
@@ -172,7 +166,6 @@ public class MainUI extends Application{
                 errorMessageUsing.setText("Name missing!");
                 return;
             }
-            myCollection.reduceItem(name, quantity);
             errorMessageUsing.setText("Item "+ name + " reduced by "+quantity);
         });
         
@@ -183,7 +176,6 @@ public class MainUI extends Application{
                 return;
             }
             try {
-                myCollection.printItem(name);
             } catch (NullPointerException e) {
                 errorMessageUsing.setText("That item is not listed yet!");
             }
@@ -191,7 +183,6 @@ public class MainUI extends Application{
         });
         
         printAllButton.setOnAction ((event) -> {
-            myCollection.printAll();
         });
         
         createUserButton.setOnAction ((event) -> {
@@ -205,7 +196,7 @@ public class MainUI extends Application{
                errorMessageCreation.setText("That password is way too short! C'mon!");
                return;
            }
-           myUsers.addUser(username, password);
+           //myUsers.addUser(username, password);
            stage.setScene(loginScene);
         });
         
