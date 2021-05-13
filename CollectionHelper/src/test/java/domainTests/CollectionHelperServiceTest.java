@@ -27,7 +27,6 @@ public class CollectionHelperServiceTest {
     CollectionHelperService service;
     FakeCollectibleDao fakeCDao;
     FakeUserDao fakeUDao;
-    String loggedIn = "";
     List<String> names;
     
     public CollectionHelperServiceTest() {
@@ -110,13 +109,13 @@ public class CollectionHelperServiceTest {
     @Test
     public void noLoginWithWrongPassword() {
         assertFalse(this.service.login("Mutsi", "mutsi2"));
-        assertEquals("", this.loggedIn);
+        assertEquals("", this.service.getLoggedIn());
     }
     
     @Test
     public void noLoginWithWrongUser() {
         assertFalse(this.service.login("Faija", "faija1"));
-        assertEquals("", this.loggedIn);
+        assertEquals("", this.service.getLoggedIn());
     }
     
     @Test
@@ -126,8 +125,8 @@ public class CollectionHelperServiceTest {
     
     @Test public void loginWorks2() {
         this.service.login("Mutsi", "mutsi1");
-        System.out.println("this.loggedIn testin sisällä: "+this.loggedIn);
-        assertEquals("Mutsi", this.loggedIn);
+        System.out.println("this.loggedIn testin sisällä: "+this.service.getLoggedIn());
+        assertEquals("Mutsi", this.service.getLoggedIn());
     }
 
     // TODO add test methods here.

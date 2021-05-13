@@ -59,4 +59,8 @@ public class CollectionHelperService {
         }
         return names;
     }
+    
+    public String getLoggedIn() {
+        return this.loggedIn;
+    }
 }
