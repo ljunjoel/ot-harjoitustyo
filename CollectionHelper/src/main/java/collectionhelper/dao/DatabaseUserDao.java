@@ -38,9 +38,7 @@ public class DatabaseUserDao implements UserDao {
             ResultSet r = preps.executeQuery();
             if (r.next()) {
                 String name = r.getString("Username");
-                System.out.println("This is the found name: "+name);
                 String password = r.getString("UserPassword");
-                System.out.println("This is the found password: "+password);
                 user = new User(name, password);
             }
         } catch (SQLException e) {
@@ -50,19 +48,16 @@ public class DatabaseUserDao implements UserDao {
     }
 
     @Override
-    public List<String> getAllNames() throws Exception {
+    public List<String> getAllNames() throws SQLException {
         try (Connection db = DriverManager.getConnection("jdbc:sqlite:collection.db")) {
             PreparedStatement preps = db.prepareStatement("SELECT Username FROM Users");
             ResultSet r = preps.executeQuery();
             if(r.next()) {
-                String name = r.getString(1);
+                String name = r.getString("Username");
                 names.add(name);
                 while(r.next()) {
-                    name = r.getString(1);
+                    name = r.getString("Username");
                     names.add(name);
-                }
-                for(String user: names) {
-                    System.out.println(user);
                 }
             } 
         } catch (SQLException e) {

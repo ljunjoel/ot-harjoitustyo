@@ -27,7 +27,9 @@ public class CollectionHelperServiceTest {
     CollectionHelperService service;
     FakeCollectibleDao fakeCDao;
     FakeUserDao fakeUDao;
+    String loggedIn = "";
     List<String> names;
+    
     public CollectionHelperServiceTest() {
     }
     
@@ -105,7 +107,28 @@ public class CollectionHelperServiceTest {
         getNames();
         assertEquals("Faija", names.get(1));
     }
+    @Test
+    public void noLoginWithWrongPassword() {
+        assertFalse(this.service.login("Mutsi", "mutsi2"));
+        assertEquals("", this.loggedIn);
+    }
     
+    @Test
+    public void noLoginWithWrongUser() {
+        assertFalse(this.service.login("Faija", "faija1"));
+        assertEquals("", this.loggedIn);
+    }
+    
+    @Test
+    public void loginWorks1() {
+        assertTrue(this.service.login("Mutsi", "mutsi1"));
+    }
+    
+    @Test public void loginWorks2() {
+        this.service.login("Mutsi", "mutsi1");
+        System.out.println("this.loggedIn testin sisällä: "+this.loggedIn);
+        assertEquals("Mutsi", this.loggedIn);
+    }
 
     // TODO add test methods here.
     // The methods must be annotated with annotation @Test. For example:

@@ -7,7 +7,6 @@ package collectionhelper.domain;
 
 import collectionhelper.dao.CollectibleDao;
 import collectionhelper.dao.UserDao;
-import java.util.ArrayList;
 import java.util.List;
 /**
  *
@@ -16,7 +15,7 @@ import java.util.List;
 public class CollectionHelperService {
     CollectibleDao collectibleDao;
     UserDao userDao;
-    User loggedIn;
+    String loggedIn="";
     List<String> names;
     
     public CollectionHelperService(CollectibleDao collectibleDao, UserDao userDao) {
@@ -26,21 +25,30 @@ public class CollectionHelperService {
     
     public boolean createUser(String name, String password) {
         User user = new User(name, password);
-        System.out.println("Name and password going into system: "+user.getName()+", "+user.getPassword());
         try {
-            System.out.println("Tapahtuuko tätä ollenkaan? (service-create)");
-            System.out.println(this.userDao);
             this.userDao.create(user);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
-            System.out.println("Jokin meni vikaan (service-create)");
             return false;
         }
         return true;
     }
     
     public boolean login(String username, String password) {
-        return true;
+        try {
+            User user = this.userDao.findByName(username);
+            System.out.println("Käyttäjän nimi: "+user.getName());
+            System.out.println("Annettu salasana: "+password.trim());
+            System.out.println("Käyttäjän salasana: "+user.getPassword().trim());
+            if((user.getPassword()).equals(password)) {
+                System.out.println("Käyttäjän nimi ifin sisällä: "+user.getName());
+                this.loggedIn = user.getName();
+                System.out.println("Nyt kirjattuna: "+this.loggedIn);
+                return true;
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return false;
     }
     
     public List<String> getNames() {
