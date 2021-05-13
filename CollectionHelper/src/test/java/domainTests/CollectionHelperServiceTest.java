@@ -125,7 +125,6 @@ public class CollectionHelperServiceTest {
     
     @Test public void loginWorks2() {
         this.service.login("Mutsi", "mutsi1");
-        System.out.println("this.loggedIn testin sisällä: "+this.service.getLoggedIn());
         assertEquals("Mutsi", this.service.getLoggedIn());
     }
 
