@@ -16,14 +16,13 @@ public class Main {
                 + " Username Varchar NOT NULL, \n"
                 + " UserPassword Varchar NOT NULL, \n"
                 + " PRIMARY KEY (Username), \n"
-                + "UNIQUE(Username)\n"
+                + " UNIQUE(Username)\n"
                 + ");";
         String sqlCollection = "CREATE TABLE IF NOT EXISTS Collection (\n"
                 + " CollectibleName Varchar NOT NULL, \n"
                 + " CollectibleQuantity integer, \n"
                 + " CollectibleUser Varchar NOT NULL, \n"
-                + "PRIMARY KEY (CollectibleName), \n"
-                + "FOREIGN KEY (CollectibleUser) REFERENCES Users(Username)\n"
+                + " FOREIGN KEY (CollectibleUser) REFERENCES Users(Username)\n"
                 +");";
         try (Connection conn = DriverManager.getConnection("jdbc:sqlite:collection.db"); 
                 Statement stmt = conn.createStatement()) {

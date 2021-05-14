@@ -5,6 +5,7 @@
  */
 package domainTests;
 
+import collectionhelper.domain.Collectible;
 import collectionhelper.domain.CollectionHelperService;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -21,13 +22,14 @@ import java.util.List;
 
 /**
  *
- * @author joel
+ * Class for testing the functionality of the CollectionHelperService class.
  */
 public class CollectionHelperServiceTest {
     CollectionHelperService service;
     FakeCollectibleDao fakeCDao;
     FakeUserDao fakeUDao;
     List<String> names;
+    List<Collectible> items;
     
     public CollectionHelperServiceTest() {
     }
@@ -51,14 +53,13 @@ public class CollectionHelperServiceTest {
                 + " Username Varchar NOT NULL, \n"
                 + " UserPassword Varchar NOT NULL, \n"
                 + " PRIMARY KEY (Username), \n"
-                + "UNIQUE(Username)\n"
+                + " UNIQUE(Username)\n"
                 + ");";
         String sqlCollection = "CREATE TABLE Collection (\n"
                 + " CollectibleName Varchar NOT NULL, \n"
                 + " CollectibleQuantity integer, \n"
                 + " CollectibleUser Varchar NOT NULL, \n"
-                + "PRIMARY KEY (CollectibleName), \n"
-                + "FOREIGN KEY (CollectibleUser) REFERENCES Users(Username)\n"
+                + " FOREIGN KEY (CollectibleUser) REFERENCES Users(Username)\n"
                 +");";
         try (Connection db = DriverManager.getConnection("jdbc:sqlite:test.db"); 
                 Statement stmt = db.createStatement()) {
@@ -75,6 +76,7 @@ public class CollectionHelperServiceTest {
             System.out.println(e.getMessage());
         }
         this.service.createUser("Mutsi", "mutsi1");
+        this.service.createItem("Dude", 1, "Mutsi");
         try {
             this.names = this.service.getNames();
         } catch (Exception e) {
@@ -95,6 +97,19 @@ public class CollectionHelperServiceTest {
         }
     }
     
+    public void getSearch(String search) {
+        try {
+            this.items = this.service.searchItems(search);
+        } catch (Exception e) {
+            System.out.println("Couldn't search items");
+        }
+    }
+    
+    public void addDudeFaijalle() {
+        this.service.createUser("Faija", "faija1");
+        this.service.createItem("Dude", 2, "Faija");
+    }
+    
     @Test
     public void mutsiWasCreated() {
         assertEquals("Mutsi", names.get(0));
@@ -108,7 +123,7 @@ public class CollectionHelperServiceTest {
     }
     @Test
     public void noLoginWithWrongPassword() {
-        assertFalse(this.service.login("Mutsi", "mutsi2"));
+        assertFalse(this.service.login("Mutsi", "Mutsi1"));
         assertEquals("", this.service.getLoggedIn());
     }
     
@@ -123,14 +138,77 @@ public class CollectionHelperServiceTest {
         assertTrue(this.service.login("Mutsi", "mutsi1"));
     }
     
-    @Test public void loginWorks2() {
+    @Test
+    public void loginWorks2() {
         this.service.login("Mutsi", "mutsi1");
         assertEquals("Mutsi", this.service.getLoggedIn());
     }
-
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //
-    // @Test
-    // public void hello() {}
+    
+    @Test
+    public void dudeWasCreated() {
+        this.service.login("Mutsi", "mutsi1");
+        getSearch("Dude");
+        assertEquals("Dude", this.items.get(0).getName());
+    }
+    
+    @Test
+    public void searchWorks() {
+        addDudeFaijalle();
+        this.service.login("Mutsi", "mutsi1");
+        getSearch("ud");
+        assertEquals("Dude", this.items.get(0).getName());
+        assertEquals(1, this.items.get(0).getQuantity());
+        assertEquals(1, this.items.size());
+    }
+    
+    @Test
+    public void getAllItemsWorks() {
+        addDudeFaijalle();
+        this.service.login("Mutsi", "mutsi1");
+        this.items = this.service.getAllItems();
+        assertEquals("Dude", this.items.get(0).getName());
+        assertEquals(1, this.items.get(0).getQuantity());
+        assertEquals(1, this.items.size());
+    }
+    
+    @Test
+    public void addingWorks() {
+        addDudeFaijalle();
+        this.service.login("Mutsi", "mutsi1");
+        this.service.addToItem(new Collectible("Dude", 1, "Mutsi"), 2);
+        this.items = this.service.getAllItems();
+        assertEquals("Dude", this.items.get(0).getName());
+        assertEquals(3, this.items.get(0).getQuantity());
+        assertEquals(1, this.items.size());
+    }
+    
+    @Test
+    public void reducingWorks() {
+        addDudeFaijalle();
+        this.service.login("Mutsi", "mutsi1");
+        this.service.addToItem(new Collectible("Dude", 1, "Mutsi"), 2);
+        this.service.reduceFromItem(new Collectible("Dude", 3, "Mutsi"), 1);
+        this.items = this.service.getAllItems();
+        assertEquals("Dude", this.items.get(0).getName());
+        assertEquals(2, this.items.get(0).getQuantity());
+        assertEquals(1, this.items.size());
+    }
+    
+    @Test
+    public void removingWorks() {
+        this.service.login("Mutsi", "mutsi1");
+        this.service.removeItem(new Collectible("Dude", 1, "Mutsi"));
+        this.items = this.service.getAllItems();
+        assertEquals(0, this.items.size());
+    }
+    @Test
+    public void removingWorksCorrectly() {
+        addDudeFaijalle();
+        this.service.login("Faija", "faija1");
+        this.service.removeItem(new Collectible("Dude", 1, "Mutsi"));
+        this.items = this.service.getAllItems();
+        assertEquals("Dude", this.items.get(0).getName());
+        assertEquals(2, this.items.get(0).getQuantity());
+        assertEquals(1, this.items.size());
+    }
 }

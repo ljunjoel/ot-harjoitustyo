@@ -3,15 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package domainTests;
+package collectionhelper.dao;
 
-import collectionhelper.dao.CollectibleDao;
 import collectionhelper.domain.Collectible;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,12 +14,12 @@ import java.util.List;
  *
  * @author joel
  */
-public class FakeCollectibleDao implements CollectibleDao{
+public class DatabaseCollectibleDao implements CollectibleDao {
     List<Collectible> items = new ArrayList<>();
     
     @Override
     public Collectible create(Collectible collectible) throws Exception {
-        try (Connection db = DriverManager.getConnection("jdbc:sqlite:test.db")) {
+        try (Connection db = DriverManager.getConnection("jdbc:sqlite:collection.db")) {
             PreparedStatement preps = db.prepareStatement("INSERT INTO Collection(CollectibleName, CollectibleQuantity, CollectibleUser) VALUES (?,?,?)");
             preps.setString(1, collectible.getName());
             preps.setInt(2, collectible.getQuantity());
@@ -38,7 +33,7 @@ public class FakeCollectibleDao implements CollectibleDao{
 
     @Override
     public Collectible add(Collectible collectible, int add) throws Exception {
-        try (Connection db = DriverManager.getConnection("jdbc:sqlite:test.db")) {
+        try (Connection db = DriverManager.getConnection("jdbc:sqlite:collection.db")) {
             PreparedStatement preps = db.prepareStatement("UPDATE Collection SET CollectibleQuantity =? WHERE CollectibleName=? AND CollectibleUser=?");
             preps.setInt(1, collectible.getQuantity() + add);
             preps.setString(2, collectible.getName());
@@ -53,7 +48,7 @@ public class FakeCollectibleDao implements CollectibleDao{
 
     @Override
     public Collectible reduce(Collectible collectible, int reducer) throws Exception {
-        try (Connection db = DriverManager.getConnection("jdbc:sqlite:test.db")) {
+        try (Connection db = DriverManager.getConnection("jdbc:sqlite:collection.db")) {
             PreparedStatement preps = db.prepareStatement("UPDATE Collection SET CollectibleQuantity =? WHERE CollectibleName=? AND CollectibleUser=?");
             preps.setInt(1, collectible.getQuantity() - reducer);
             preps.setString(2, collectible.getName());
@@ -68,7 +63,7 @@ public class FakeCollectibleDao implements CollectibleDao{
 
     @Override
     public Collectible remove(Collectible collectible) throws Exception {
-        try (Connection db = DriverManager.getConnection("jdbc:sqlite:test.db")) {
+        try (Connection db = DriverManager.getConnection("jdbc:sqlite:collection.db")) {
             PreparedStatement preps = db.prepareStatement("DELETE FROM Collection WHERE CollectibleName=? AND CollectibleUser=?");
             preps.setString(1, collectible.getName());
             preps.setString(2, collectible.getOwner());
@@ -81,7 +76,7 @@ public class FakeCollectibleDao implements CollectibleDao{
 
     @Override
     public List<Collectible> search(String search, String username) throws Exception {
-        try (Connection db = DriverManager.getConnection("jdbc:sqlite:test.db")) {
+        try (Connection db = DriverManager.getConnection("jdbc:sqlite:collection.db")) {
             PreparedStatement preps = db.prepareStatement("SELECT * FROM Collection WHERE CollectibleName LIKE ? AND CollectibleUser=?;");
             preps.setString(1,"%"+search+"%");
             preps.setString(2, username);
@@ -108,7 +103,7 @@ public class FakeCollectibleDao implements CollectibleDao{
 
     @Override
     public List<Collectible> getAll(String username) throws Exception {
-        try (Connection db = DriverManager.getConnection("jdbc:sqlite:test.db")) {
+        try (Connection db = DriverManager.getConnection("jdbc:sqlite:collection.db")) {
             PreparedStatement preps = db.prepareStatement("SELECT * FROM Collection WHERE CollectibleUser=?;");
             preps.setString(1, username);
             ResultSet r = preps.executeQuery();
@@ -131,5 +126,4 @@ public class FakeCollectibleDao implements CollectibleDao{
         }
         return this.items;
     }
-    
 }

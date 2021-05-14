@@ -17,6 +17,7 @@ public class CollectionHelperService {
     UserDao userDao;
     String loggedIn="";
     List<String> names;
+    List<Collectible> items;
     
     public CollectionHelperService(CollectibleDao collectibleDao, UserDao userDao) {
         this.collectibleDao = collectibleDao;
@@ -36,13 +37,8 @@ public class CollectionHelperService {
     public boolean login(String username, String password) {
         try {
             User user = this.userDao.findByName(username);
-            System.out.println("Käyttäjän nimi: "+user.getName());
-            System.out.println("Annettu salasana: "+password.trim());
-            System.out.println("Käyttäjän salasana: "+user.getPassword().trim());
             if((user.getPassword()).equals(password)) {
-                System.out.println("Käyttäjän nimi ifin sisällä: "+user.getName());
                 this.loggedIn = user.getName();
-                System.out.println("Nyt kirjattuna: "+this.loggedIn);
                 return true;
             }
         } catch (Exception e) {
@@ -60,7 +56,66 @@ public class CollectionHelperService {
         return names;
     }
     
+    public void logout() {
+        this.loggedIn="";
+    }
+    
     public String getLoggedIn() {
         return this.loggedIn;
+    }
+    
+    public List<Collectible> searchItems(String search) {
+        try {
+            items = collectibleDao.search(search, getLoggedIn());
+        } catch (Exception e) {
+            System.out.println("No items");
+        }
+        return items;
+    }
+    
+    public boolean createItem(String name, int quantity, String owner) {
+        Collectible collectible = new Collectible(name, quantity, owner);
+        try {
+            this.collectibleDao.create(collectible);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
+    
+    public List<Collectible> getAllItems() {
+        try {
+            items = collectibleDao.getAll(getLoggedIn());
+        } catch (Exception e) {
+            System.out.println("Kaikkien hakeminen kusi");
+        }
+        return items;
+    }
+    
+    public boolean addToItem(Collectible item, int add) {
+        try {
+            this.collectibleDao.add(item, add);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
+    
+    public boolean reduceFromItem(Collectible item, int reducer) {
+        try {
+            this.collectibleDao.reduce(item, reducer);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
+    
+    public boolean removeItem(Collectible item) {
+        try{
+            this.collectibleDao.remove(item);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
     }
 }

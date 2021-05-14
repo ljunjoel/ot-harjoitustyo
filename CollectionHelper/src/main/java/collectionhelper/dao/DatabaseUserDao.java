@@ -8,13 +8,14 @@ package collectionhelper.dao;
 import collectionhelper.domain.User;
 import java.util.List;
 import java.sql.*;
+import java.util.ArrayList;
 
 /**
  *
  * @author joel
  */
 public class DatabaseUserDao implements UserDao {
-    List<String> names;
+    List<String> names = new ArrayList<>();
     
     @Override
     public User create(User user) throws Exception {

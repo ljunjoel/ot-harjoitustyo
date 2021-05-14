@@ -20,7 +20,7 @@ public interface CollectibleDao {
     
     Collectible remove (Collectible collectible) throws Exception;
     
-    List <Collectible> search(String search) throws Exception;
+    List <Collectible> search(String search, String username) throws Exception;
     
-    List <Collectible> getAll() throws Exception;
+    List <Collectible> getAll(String username) throws Exception;
 }
