@@ -7,4 +7,5 @@
 | 1.5. | 1 h | SQLiten ihmettelyä |
 | 4.5. | 7 h | Yritystä saada tekstit toimimaan JFX:ssä, lisätä ominaisuuksia, testejä ym. |
 | 12.5. | 4 h | Teksti hoidettu, palattu ihmettelemään SQLiten ihmeellistä maailmaa |
-| 13.5. | 11h | Koodia pukattu. Tietokanta pelittää, vähän testejä kans |
+| 13.5. | 11 h | Koodia pukattu. Tietokanta pelittää, vähän testejä kans |
+| 14.5. | 4 h | Dao-puoli kunnossa, seuraavaksi sovelluksen piiriin kaikki |
