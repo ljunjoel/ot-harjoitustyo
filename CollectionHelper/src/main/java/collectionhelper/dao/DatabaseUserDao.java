@@ -24,16 +24,17 @@ public class DatabaseUserDao implements UserDao {
             preps.setString(1, user.getName());
             preps.setString(2, user.getPassword());
             preps.executeUpdate();
-        } catch (SQLException e) {
-            System.out.println("Käyttäjän lisääminen ei onnistunut");
+        } catch (Exception e) {
+            System.out.println("User creation failed");
         }
+        
         return user;
     }
 
     @Override
     public User findByName(String username) throws Exception {
         User user = new User("", "");
-        try (Connection db = DriverManager.getConnection("jdbc:sqlite:collection.db")) {
+        try (Connection db = DriverManager.getConnection("jdbc:sqlite:collection.db")) {      
             PreparedStatement preps = db.prepareStatement("SELECT * FROM Users WHERE Username=?");
             preps.setString(1, username);
             ResultSet r = preps.executeQuery();
@@ -42,8 +43,8 @@ public class DatabaseUserDao implements UserDao {
                 String password = r.getString("UserPassword");
                 user = new User(name, password);
             }
-        } catch (SQLException e) {
-            System.out.println("Käyttäjää ei löydy");
+        } catch (Exception e) {
+            System.out.println("Finding failed");
         }
         return user;
     }
@@ -57,13 +58,14 @@ public class DatabaseUserDao implements UserDao {
                 String name = r.getString("Username");
                 names.add(name);
                 while(r.next()) {
-                    name = r.getString("Username");
-                    names.add(name);
+                name = r.getString("Username");
+                names.add(name);
                 }
             } 
-        } catch (SQLException e) {
-            System.out.println("getAllNames(): No users?");
+        } catch (Exception e) {
+            System.out.println("Getting all names failed");
         }
+        
         return this.names;
     }
     

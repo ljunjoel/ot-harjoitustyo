@@ -162,6 +162,16 @@ public class CollectionHelperServiceTest {
     }
     
     @Test
+    public void searchIsCaseInsensitive() {
+        addDudeFaijalle();
+        this.service.login("Mutsi", "mutsi1");
+        getSearch("du");
+        assertEquals("Dude", this.items.get(0).getName());
+        assertEquals(1, this.items.get(0).getQuantity());
+        assertEquals(1, this.items.size());
+    }
+    
+    @Test
     public void getAllItemsWorks() {
         addDudeFaijalle();
         this.service.login("Mutsi", "mutsi1");

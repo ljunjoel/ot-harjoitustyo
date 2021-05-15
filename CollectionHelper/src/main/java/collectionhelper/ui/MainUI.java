@@ -5,6 +5,10 @@
  */
 package collectionhelper.ui;
 
+import collectionhelper.dao.DatabaseCollectibleDao;
+import collectionhelper.dao.DatabaseUserDao;
+import collectionhelper.domain.Collectible;
+import collectionhelper.domain.CollectionHelperService;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -19,12 +23,20 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.Region;
 import javafx.scene.text.Text;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
- * @author joel
+ * Component for the UI. 
  */
 public class MainUI extends Application{
+    DatabaseCollectibleDao cDao = new DatabaseCollectibleDao();
+    DatabaseUserDao uDao = new DatabaseUserDao();
+    CollectionHelperService service = new CollectionHelperService(cDao, uDao);
+    List<String> names = new ArrayList<>();
+    List<Collectible> items = new ArrayList<>();
+    
     @Override
     public void start(Stage stage) throws Exception {
        
@@ -115,20 +127,26 @@ public class MainUI extends Application{
         Scene welcomeScene = new Scene(userPane);
         
         loginButton.setOnAction((event) -> {
-          String username = usernameField.getText().trim();
-          String password = passwordField.getText().trim();
-          /*if(!(myUsers.getUser(username))) {
-              errorMessageLogin.setText("There is no such user");
-              return;
-          }
-          if(!(password.equals(myUsers.getPassword(username)))) {
-              errorMessageLogin.setText("Have you forgotten your password? Because that isn't it");
-              return;
-          }*/
-          stage.setScene(welcomeScene);
+            String username = usernameField.getText().trim();
+            String password = passwordField.getText().trim();
+            names = this.service.getNames();
+            if(!(names.contains(username))) {
+                errorMessageLogin.setText("There is no such user");
+                return;
+            }
+            if(!(this.service.login(username, password))) {
+                errorMessageLogin.setText("Did you forget your password? Because that isn't it");
+                return;
+            }
+            usernameField.clear();
+            passwordField.clear();
+            stage.setScene(welcomeScene);
         });
         
         logoutButton.setOnAction((event) -> {
+            this.service.logout();
+            articleName.clear();
+            articleQuantity.clear();
             stage.setScene(loginScene);
         });
         
@@ -139,7 +157,7 @@ public class MainUI extends Application{
             try {
                 quantity = Integer.parseInt(quantityString);
             } catch (NumberFormatException e) {
-                errorMessageUsing.setText("Quantity is not a number!");
+                errorMessageUsing.setText("Quantity is not a number or an integer!");
                 return;
             }
             
@@ -147,8 +165,28 @@ public class MainUI extends Application{
                 errorMessageUsing.setText("Name missing!");
                 return;
             }
-            
-            errorMessageUsing.setText("Item "+ name + " increased by "+quantity);
+            items = this.service.getAllItems();
+            List<String> itemNames = new ArrayList<>();
+            for (Collectible item: items) {
+                itemNames.add(item.getName());
+            }
+            if(!(itemNames.contains(name))) {
+                this.service.createItem(name, quantity, this.service.getLoggedIn());
+                errorMessageUsing.setText("Item "+name+" created with quantity: "+quantity);
+                items.clear();
+                return;
+            }
+            int i = 0;
+            for(Collectible item: items) {
+                if(!(item.getName().equals(name))) {
+                    i++;
+                } else {
+                    break;
+                }
+            }
+            this.service.addToItem(items.get(i), quantity);
+            errorMessageUsing.setText("Item "+ items.get(i).getName() + " increased by "+quantity);
+            items.clear();
         });
         
         reduceButton.setOnAction((event) -> {
@@ -166,23 +204,61 @@ public class MainUI extends Application{
                 errorMessageUsing.setText("Name missing!");
                 return;
             }
-            errorMessageUsing.setText("Item "+ name + " reduced by "+quantity);
+            items = this.service.getAllItems();
+            List<String> itemNames = new ArrayList<>();
+            for (Collectible item: items) {
+                itemNames.add(item.getName());
+            }
+            if(!(itemNames.contains(name))) {
+                errorMessageUsing.setText("That item does not yet exist! Please add using the Add button");
+                items.clear();
+                return;
+            }
+            int i = 0;
+            for(Collectible item: items) {
+                if(!(item.getName().equals(name))) {
+                    i++;
+                } else {
+                    break;
+                }
+            }
+            this.service.reduceFromItem(items.get(i), quantity);
+            errorMessageUsing.setText("Item "+ items.get(i).getName() + " reduced by "+quantity);
+            items.clear();
         });
         
         printSomeButton.setOnAction ((event) -> {
             String name = articleName.getText().trim();
             if(name.equals("")) {
-                errorMessageUsing.setText("Name missing!");
+                errorMessageUsing.setText("Specify search or press print all!");
                 return;
             }
             try {
+                items = this.service.searchItems(name);
+                for(Collectible item: items) {
+                    System.out.println("Item name: "+item.getName());
+                    System.out.println("Quantity: "+item.getQuantity());
+                }
+                items.clear();
             } catch (NullPointerException e) {
-                errorMessageUsing.setText("That item is not listed yet!");
+                errorMessageUsing.setText("No search results found!");
+                return;
             }
             
         });
         
         printAllButton.setOnAction ((event) -> {
+            try {
+                items = this.service.getAllItems();
+                for(Collectible item: items) {
+                    System.out.println("Item name: "+item.getName());
+                    System.out.println("Quantity: "+item.getQuantity());
+                }
+                items.clear();
+            } catch (NullPointerException e) {
+                errorMessageUsing.setText("There are no items yet!");
+                return;
+            }
         });
         
         createUserButton.setOnAction ((event) -> {
@@ -196,7 +272,9 @@ public class MainUI extends Application{
                errorMessageCreation.setText("That password is way too short! C'mon!");
                return;
            }
-           //myUsers.addUser(username, password);
+           this.service.createUser(username, password);
+           createUsernameText.clear();
+           createPasswordField.clear();
            stage.setScene(loginScene);
         });
         
