@@ -16,4 +16,4 @@ Kirjauduttuasi sisään aukeaa eteesi käyttönäkymä. Tässä näkymässä voi
 ### Add-painikkeen toiminnallisuus
 Add-painikkeella on kaksi toimintoa. Sillä voi lisätä kokonaan uusia esineitä, ja toisaalta sillä voi lisätä artikkelin lukumäärää kokoelmassa. Molemmat toiminnot suoritetaan täysin samalla tavallaa: Aseta ensin ylempään kenttään artikkelin nimi ja tämän jälkeen määrä alempaan kenttään. Kun molemmat ovat kuten pitää, paina Add-painiketta.
 ### Reduce-painikkeen toiminnallisuus
-
+Reduce-painikkeella on myös kaksi toimintoa. Sillä voi vähentää artikkelin lukumäärää kokoelmassa ja, vähentämällä jonkin artikkelin nollaan (tai alle), poistaa kyseisen artikkelin.
