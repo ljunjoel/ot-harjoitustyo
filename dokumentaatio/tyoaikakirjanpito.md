@@ -9,3 +9,4 @@
 | 12.5. | 4 h | Teksti hoidettu, palattu ihmettelemään SQLiten ihmeellistä maailmaa |
 | 13.5. | 11 h | Koodia pukattu. Tietokanta pelittää, vähän testejä kans |
 | 14.5. | 4 h | Dao-puoli kunnossa, seuraavaksi sovelluksen piiriin kaikki |
+| Yht. | 37h 15 min |  |
