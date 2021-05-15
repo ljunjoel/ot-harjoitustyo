@@ -17,7 +17,7 @@ import java.util.List;
 
 /**
  *
- * @author joel
+ * A mock implementation of DatabaseCollectibleDao for use in testing.
  */
 public class FakeCollectibleDao implements CollectibleDao{
     List<Collectible> items = new ArrayList<>();

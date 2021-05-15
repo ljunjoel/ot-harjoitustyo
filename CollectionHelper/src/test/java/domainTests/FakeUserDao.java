@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author joel
+ * A mock implementation of DatabaseUserDao for use in testing.
  */
 public class FakeUserDao implements UserDao{
     List<String> names = new ArrayList<>();
