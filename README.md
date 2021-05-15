@@ -68,4 +68,4 @@ Generoi suoritettava jar-tiedosto!
 ```
 mvn package
 ```
-jar-tiedoston _CollectionHelper-1.0-SNAPSHOT.jar_ löydät hakemistosta _target_
+jar-tiedoston _CollectionHelper-1.0-SNAPSHOT.jar_ löydät hakemistosta _target_. Toimenpide saattaa vaatia, että projekti Build and Clean:ataan ensin.
