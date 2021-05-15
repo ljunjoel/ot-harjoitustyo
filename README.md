@@ -34,6 +34,7 @@ The search and print all functions will print to console.
 
 [Työaikakirjanpito](https://github.com/ljunjoel/ot-harjoitustyo/blob/master/dokumentaatio/tyoaikakirjanpito.md)
 
+[Käyttöohje](https://github.com/ljunjoel/ot-harjoitustyo/blob/master/dokumentaatio/kayttoohje.md)
 
 ## Releaset
 [Viikko 5](https://github.com/ljunjoel/ot-harjoitustyo/tree/viikko5)
