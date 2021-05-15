@@ -54,7 +54,7 @@ mvn jacoco:report
 ```
 Kattavuusraporttia voi tarkastella avaamalla selaimella tiedosto _target/site/jacoco/index.html_
 ### Checkstyle
-Tiedoston [checkstyle.xml](https://github.com/ljunjoel/ot-harjoitustyo/blob/master/CollectionHelper/checkstyle.xml) määrittelemät tarkistukset suoritetaan komennolla
+Tiedosto [checkstyle.xml](https://github.com/ljunjoel/ot-harjoitustyo/blob/master/CollectionHelper/checkstyle.xml) määrittelee tyylisäännöt. Raportin virheistä voi generoida loitsulla
 ```
  mvn jxr:jxr checkstyle:checkstyle
 ```
@@ -62,8 +62,8 @@ Tiedoston [checkstyle.xml](https://github.com/ljunjoel/ot-harjoitustyo/blob/mast
 Mahdolliset virheilmoitukset selviävät avaamalla selaimella tiedosto _target/site/checkstyle.html_
 ### Suoritettavan jarin generointi
 
-Komento
+Generoi suoritettava jar-tiedosto!
 ```
 mvn package
 ```
-generoi hakemistoon _target_ suoritettavan jar-tiedoston _CollectionHelper-1.0-SNAPSHOT.jar_
+jar-tiedoston _CollectionHelper-1.0-SNAPSHOT.jar_ löydät hakemistosta _target_
