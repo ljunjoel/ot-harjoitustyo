@@ -17,3 +17,5 @@ Kirjauduttuasi sisään aukeaa eteesi käyttönäkymä. Tässä näkymässä voi
 Add-painikkeella on kaksi toimintoa. Sillä voi lisätä kokonaan uusia esineitä, ja toisaalta sillä voi lisätä artikkelin lukumäärää kokoelmassa. Molemmat toiminnot suoritetaan täysin samalla tavallaa: Aseta ensin ylempään kenttään artikkelin nimi ja tämän jälkeen määrä alempaan kenttään. Kun molemmat ovat kuten pitää, paina Add-painiketta.
 ### Reduce-painikkeen toiminnallisuus
 Reduce-painikkeella on myös kaksi toimintoa. Sillä voi vähentää artikkelin lukumäärää kokoelmassa ja, vähentämällä jonkin artikkelin nollaan (tai alle), poistaa kyseisen artikkelin.
+### Tulostukset
+Print Collection - ja Search-painikkeet tuottavat molemmat konsoliin tulostuksia. Print Collection -painike tulostaa konsoliin kaikki kirjautuneena olevan käyttäjän artikkelit, kun taas Search-painike tulostaa haun tulokset konsoliin. Haku tapahtuu näkymän ylemmästä kentästä.
