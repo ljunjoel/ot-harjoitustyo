@@ -2,7 +2,7 @@
 
 ## Sovelluksen tarkoitus
 
-Sovelluksen tarkoitus on mahdollistaa keräilyesineiden, lähtökohtaisesti keräilykorttien, kirjanpito. Sovellukseen voi rekisteröidä erillisiä käyttäjiä, jolloin niillä on omat listat.
+Sovelluksen tarkoitus on mahdollistaa keräilyesineiden, lähtökohtaisesti keräilykorttien, kirjanpito. Sovellukseen voi rekisteröidä erillisiä käyttäjiä, jolloin niillä on omat eriliset listat.
 
 ## Perusversion tarjoamat toiminnallisuudet
 
@@ -16,13 +16,16 @@ Sovelluksen tarkoitus on mahdollistaa keräilyesineiden, lähtökohtaisesti ker�
  
 ### Sisäänkirjautumisen jälkeen
 - Mahdollisuus lisätä artikkeleita omaan listaan
-  - Kortin/esineen nimi ja määrä
+  - Artikkelin nimi ja määrä
   - Lisätyt artikkelit näkyvät vain käyttäjälle itselleen
+  - Usealla käyttäjällä voi olla samannimisiä artikkeleita
+- Mahdollisuus muuttaa artikkelien tietoja
+  - Artikkelin määrää voi lisätä ja vähentää
+  - Kun artikkelin määrä laskee nollaan, järjestelmä tuhoaa artikkelin automaattisesti
 - Mahdollisuus tulostaa kaikki tallennetut artikkelit
   - Koskee vain käyttäjän omia artikkeleita, ei muiden käyttäjien artikkeleita
+- Käyttäjä pystyy tekemään tarkennettuja hakuja tallentamiensa artikkelien joukosta
 
 ## Jatkokehitysideoita
-Mikäli aikaa riittää, pyritään saamaan seuraavia ominaisuuksia mukaan järjestelmään:
-- Käyttäjä pystyy tekemään tarkennettuja hakuja tallentamiensa artikkelien joukosta
 - Käyttäjä pystyy vertaamaan omaa kokoelmaansa valmiiseen listaan, jolloin selviää, paljonko hänen vielä tarvitsee kerätä
   - Vertailun idea on lähtökohtaisesti ns. [decklistien](https://magic.gg/decklists) vertaaminen omaan kokoelmaan, jolloin saa selville, mitä pakan korteista jo omistaa
