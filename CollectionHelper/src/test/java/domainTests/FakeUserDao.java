@@ -53,6 +53,7 @@ public class FakeUserDao implements UserDao{
         try (Connection db = DriverManager.getConnection("jdbc:sqlite:test.db")) {
             PreparedStatement preps = db.prepareStatement("SELECT Username FROM Users;");
             ResultSet r = preps.executeQuery();
+            names.clear();
             if(r.next()) {
                 String name = r.getString("Username");
                 names.add(name);
@@ -60,7 +61,7 @@ public class FakeUserDao implements UserDao{
                     name = r.getString("Username");
                     names.add(name);
                 }
-            } 
+            }
         } catch (SQLException e) {
             System.out.println("getAllNames(): No users?");
         }

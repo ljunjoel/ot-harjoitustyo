@@ -14,7 +14,11 @@ import java.util.Map;
 public class User {
     String username;
     String password;
-    
+    /**
+     * A constructor with two parameters.
+     * @param username The username you would like to use.
+     * @param password The password you would like to use.
+     */
     public User(String username, String password) {
         this.username = username;
         this.password = password;

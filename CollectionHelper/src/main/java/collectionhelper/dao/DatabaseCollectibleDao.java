@@ -12,7 +12,7 @@ import java.util.List;
 
 /**
  *
- * @author joel
+ * An implementation of the interface CollectibleDao, specifically designed to interact with the database.
  */
 public class DatabaseCollectibleDao implements CollectibleDao {
     List<Collectible> items = new ArrayList<>();
@@ -42,7 +42,7 @@ public class DatabaseCollectibleDao implements CollectibleDao {
         } catch (SQLException e) {
             System.out.println("Esineeseen lisääminen ei onnistunut");
         }
-        Collectible newCollectible = new Collectible(collectible.getName(), collectible.getQuantity()+add, collectible.getOwner());
+        Collectible newCollectible = new Collectible(collectible.getName(), collectible.getQuantity() + add, collectible.getOwner());
         return newCollectible;
     }
 
@@ -78,16 +78,16 @@ public class DatabaseCollectibleDao implements CollectibleDao {
     public List<Collectible> search(String search, String username) throws Exception {
         try (Connection db = DriverManager.getConnection("jdbc:sqlite:collection.db")) {
             PreparedStatement preps = db.prepareStatement("SELECT * FROM Collection WHERE CollectibleName LIKE ? AND CollectibleUser=?;");
-            preps.setString(1,"%"+search+"%");
+            preps.setString(1, "%" + search + "%");
             preps.setString(2, username);
             ResultSet r = preps.executeQuery();
-            if(r.next()) {
+            if (r.next()) {
                 String name = r.getString("CollectibleName");
                 int quantity = r.getInt("CollectibleQuantity");
                 String owner = r.getString("CollectibleUser");
                 Collectible item = new Collectible(name, quantity, owner);
                 items.add(item);
-                while(r.next()) {
+                while (r.next()) {
                     name = r.getString("CollectibleName");
                     quantity = r.getInt("CollectibleQuantity");
                     owner = r.getString("CollectibleUser");
@@ -107,13 +107,13 @@ public class DatabaseCollectibleDao implements CollectibleDao {
             PreparedStatement preps = db.prepareStatement("SELECT * FROM Collection WHERE CollectibleUser=?;");
             preps.setString(1, username);
             ResultSet r = preps.executeQuery();
-            if(r.next()) {
+            if (r.next()) {
                 String name = r.getString("CollectibleName");
                 int quantity = r.getInt("CollectibleQuantity");
                 String owner = r.getString("CollectibleUser");
                 Collectible item = new Collectible(name, quantity, owner);
                 items.add(item);
-                while(r.next()) {
+                while (r.next()) {
                     name = r.getString("CollectibleName");
                     quantity = r.getInt("CollectibleQuantity");
                     owner = r.getString("CollectibleUser");

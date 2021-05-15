@@ -222,6 +222,12 @@ public class MainUI extends Application{
                     break;
                 }
             }
+            if ((items.get(i).getQuantity() - quantity) <= 0) {
+                this.service.removeItem(items.get(i));
+                errorMessageUsing.setText("That was the last of them! Item " + items.get(i).getName() + " was removed");
+                items.clear();
+                return;
+            }
             this.service.reduceFromItem(items.get(i), quantity);
             errorMessageUsing.setText("Item "+ items.get(i).getName() + " reduced by "+quantity);
             items.clear();
@@ -235,9 +241,9 @@ public class MainUI extends Application{
             }
             try {
                 items = this.service.searchItems(name);
-                for(Collectible item: items) {
-                    System.out.println("Item name: "+item.getName());
-                    System.out.println("Quantity: "+item.getQuantity());
+                for (Collectible item: items) {
+                    System.out.println("Item name: " + item.getName());
+                    System.out.println("Quantity: " + item.getQuantity());
                 }
                 items.clear();
             } catch (NullPointerException e) {
@@ -248,17 +254,17 @@ public class MainUI extends Application{
         });
         
         printAllButton.setOnAction ((event) -> {
-            try {
-                items = this.service.getAllItems();
-                for(Collectible item: items) {
-                    System.out.println("Item name: "+item.getName());
-                    System.out.println("Quantity: "+item.getQuantity());
-                }
-                items.clear();
-            } catch (NullPointerException e) {
+            items = this.service.getAllItems();
+            if (items.size() < 1) {
                 errorMessageUsing.setText("There are no items yet!");
+                items.clear();
                 return;
             }
+            for (Collectible item: items) {
+                System.out.println("Item name: " + item.getName());
+                System.out.println("Quantity: " + item.getQuantity());
+            }
+            items.clear();
         });
         
         createUserButton.setOnAction ((event) -> {
@@ -270,6 +276,10 @@ public class MainUI extends Application{
            }
            if(!(password.length() > 2)) {
                errorMessageCreation.setText("That password is way too short! C'mon!");
+               return;
+           }
+           if(!(this.service.createUser(username, password))) {
+               errorMessageCreation.setText("That user already exists");
                return;
            }
            this.service.createUser(username, password);

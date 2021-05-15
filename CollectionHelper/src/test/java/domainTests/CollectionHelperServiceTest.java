@@ -119,7 +119,7 @@ public class CollectionHelperServiceTest {
     public void newUserCanBeCreated() {
         this.service.createUser("Faija", "faija1");
         getNames();
-        assertEquals("Faija", names.get(1));
+        assertEquals("Faija", names.get(0));
     }
     @Test
     public void noLoginWithWrongPassword() {

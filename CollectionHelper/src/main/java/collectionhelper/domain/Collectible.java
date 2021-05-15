@@ -7,16 +7,21 @@ package collectionhelper.domain;
 
 
 /**
- * Class representing a collectible.
  * 
+ * Class representing a collectible.
  */
 public class Collectible {
     String name;
     Integer quantity;
     String owner;
     
-    
-    public Collectible (String name, int quantity, String owner) {
+    /**
+     * A constructor with all needed parameters.
+     * @param name The name you want to give.
+     * @param quantity The amount you have of it.
+     * @param owner Username of the owner.
+     */
+    public Collectible(String name, int quantity, String owner) {
         this.name = name;
         this.quantity = quantity;
         this.owner = owner;
