@@ -239,18 +239,16 @@ public class MainUI extends Application{
                 errorMessageUsing.setText("Specify search or press print all!");
                 return;
             }
-            try {
-                items = this.service.searchItems(name);
-                for (Collectible item: items) {
-                    System.out.println("Item name: " + item.getName());
-                    System.out.println("Quantity: " + item.getQuantity());
-                }
-                items.clear();
-            } catch (NullPointerException e) {
+            items = this.service.searchItems(name);
+            if(items.size() < 1) {
                 errorMessageUsing.setText("No search results found!");
                 return;
             }
-            
+            for (Collectible item: items) {
+                System.out.println("Item name: " + item.getName());
+                System.out.println("Quantity: " + item.getQuantity());
+            }
+            items.clear();
         });
         
         printAllButton.setOnAction ((event) -> {
