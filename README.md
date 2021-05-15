@@ -38,6 +38,8 @@ The search and print all functions will print to console.
 ## Releaset
 [Viikko 5](https://github.com/ljunjoel/ot-harjoitustyo/tree/viikko5)
 
+[Loppupalautus](https://github.com/ljunjoel/ot-harjoitustyo/releases/tag/loppupalautus)
+
 ## Komentorivikomennot
 Ohjelman voi ajaa komentoriviltä kommennolla
 ```
