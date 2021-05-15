@@ -64,7 +64,6 @@ public class DatabaseUserDao implements UserDao {
                     names.add(name);
                 }
             }
-            names.clear();
         } catch (Exception e) {
             System.out.println("Getting all names failed");
         }
