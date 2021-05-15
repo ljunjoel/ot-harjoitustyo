@@ -24,8 +24,11 @@ Sovelluksen tarkoitus on mahdollistaa keräilyesineiden, lähtökohtaisesti ker�
   - Kun artikkelin määrä laskee nollaan, järjestelmä tuhoaa artikkelin automaattisesti
 - Mahdollisuus tulostaa kaikki tallennetut artikkelit
   - Koskee vain käyttäjän omia artikkeleita, ei muiden käyttäjien artikkeleita
+  - Tulostus tapahtuu konsoliin
 - Käyttäjä pystyy tekemään tarkennettuja hakuja tallentamiensa artikkelien joukosta
+  - Hakutulokset tulostuvat konsoliin
 
 ## Jatkokehitysideoita
+- Tulostukset tiedostoon
 - Käyttäjä pystyy vertaamaan omaa kokoelmaansa valmiiseen listaan, jolloin selviää, paljonko hänen vielä tarvitsee kerätä
   - Vertailun idea on lähtökohtaisesti ns. [decklistien](https://magic.gg/decklists) vertaaminen omaan kokoelmaan, jolloin saa selville, mitä pakan korteista jo omistaa
