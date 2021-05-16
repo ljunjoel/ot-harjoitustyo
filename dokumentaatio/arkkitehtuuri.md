@@ -18,7 +18,7 @@ Sovelluslogiikan keskiössä ovat luokat [Collectible](https://github.com/ljunjo
 
 ![](https://github.com/ljunjoel/ot-harjoitustyo/blob/master/dokumentaatio/Kuvat/classdiagram.png)
 
-Toiminnallisuudesta vastaa luokka [CollectionHelperService](https://github.com/ljunjoel/ot-harjoitustyo/blob/master/CollectionHelper/src/main/java/collectionhelper/domain/CollectionHelperService.java). Luokka tarjoaa konstruktorin, jolla se yhdistetään UserDao:n ja CollectibleDao:n toteutukseen. Luokasta luotu olio tarjoaa käyttöliittymälle kaikki metodit, joiden avulla se voi suorittaa tehtävänsä. Näitä ovat esimerkiksi
+Toiminnallisuudesta vastaa luokka [CollectionHelperService](https://github.com/ljunjoel/ot-harjoitustyo/blob/master/CollectionHelper/src/main/java/collectionhelper/domain/CollectionHelperService.java). Luokka tarjoaa konstruktorin, jolla se yhdistetään rajapintojen [UserDao](https://github.com/ljunjoel/ot-harjoitustyo/blob/master/CollectionHelper/src/main/java/collectionhelper/dao/UserDao.java) ja [CollectibleDao](https://github.com/ljunjoel/ot-harjoitustyo/blob/master/CollectionHelper/src/main/java/collectionhelper/dao/CollectibleDao.java) toteutukseen. Luokasta luotu olio tarjoaa käyttöliittymälle kaikki metodit, joiden avulla se voi suorittaa tehtävänsä. Näitä ovat esimerkiksi
 
 - boolean login(String username, String password)
 - List<String> getNames()
@@ -26,8 +26,16 @@ Toiminnallisuudesta vastaa luokka [CollectionHelperService](https://github.com/l
 
 Daojen toteutuksien kytkeminen on kriittistä, sillä muuten [CollectionHelperService](https://github.com/ljunjoel/ot-harjoitustyo/blob/master/CollectionHelper/src/main/java/collectionhelper/domain/CollectionHelperService.java) ei pääsisi käsiksi tietokantaan, mikä on collectionhelper.dao-paketin tehtävä.
 
-Ohessa [palveluntarjoajan](https://github.com/ljunjoel/ot-harjoitustyo/blob/master/CollectionHelper/src/main/java/collectionhelper/domain/CollectionHelperService.java) ja ohjelman muiden osien välinen pakkauskaavio, jossa on kuitenkin vedetty yhteydet luokkienkin välille:
+Ohessa [palveluntarjoajan](https://github.com/ljunjoel/ot-harjoitustyo/blob/master/CollectionHelper/src/main/java/collectionhelper/domain/CollectionHelperService.java) ja ohjelman muiden osien välinen pakkauskaavio, jossa on kuitenkin vedetty yhteydet lisäksi luokkien ja rajapintojen välille:
 
 ![](https://github.com/ljunjoel/ot-harjoitustyo/blob/master/dokumentaatio/Kuvat/packages.png)
 
 ## Tietojen pysyväistalletus
+Sekä keräilyesineet että käyttäjät lisätään SQLite:llä toteutettuun tietokantaan omiin tauluihinsa. Mikäli tätä tietokantaa ei vielä ohjelman kansiossa ole, alustaa [Main](https://github.com/ljunjoel/ot-harjoitustyo/blob/master/CollectionHelper/src/main/java/collectionhelper/ui/Main.java)-metodi kyseisen tietokannan. Tietoihin päästään käsiksi yleisten rajapintojen toteutuksilla [DatabaseCollectibleDao](https://github.com/ljunjoel/ot-harjoitustyo/blob/master/CollectionHelper/src/main/java/collectionhelper/dao/DatabaseCollectibleDao.java) ja [DatabaseUserDao](https://github.com/ljunjoel/ot-harjoitustyo/blob/master/CollectionHelper/src/main/java/collectionhelper/dao/DatabaseUserDao.java) avulla. Tehty valinta käyttää rajapintoja, kuten on tyypillistä Data Access Object -suunnittelumallissa, suo sen, että jatkossa muuttuva toteutus toimii yhä suhteellisen moitteetta.
+
+### Tietokannan taulut
+Tietokannassa on kaksi taulua, joista toinen on nimeltään Users ja toinen Collection.
+
+Taulu Users sisältää kaksi saraketta, ja ne on nimetty, järjestyksessä, Username ja UserPassword. Username on nimetty taulussa uniikiksi sekä taulun primary key:ksi. Tähän tallentuvat kaikki käyttäjät, ja heidän salasanansa.
+
+Taulu Collection sisältää kolme saraketta, ja ne on nimetty, järjestyksessä, CollectibleName, CollectibleQuantity ja CollectibleUser. CollectibleUser on taulussa nimetty foreign key:ksi, joka viittaa taulun Users sarakkeeseen Username. Tähän tallentuvat kaikki esineet, ja ne yksilöidään kuuluvaksi jollekin käyttäjälle.
