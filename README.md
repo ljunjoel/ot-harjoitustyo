@@ -71,7 +71,7 @@ Tiedosto [checkstyle.xml](https://github.com/ljunjoel/ot-harjoitustyo/blob/maste
  mvn jxr:jxr checkstyle:checkstyle
 ```
 
-Mahdolliset virheet voi käydä tarkistamassa avaamalla selaimella tiedoston _target/site/checkstyle.html_
+Mahdolliset sääntörikkomukset voi käydä tarkistamassa avaamalla selaimella tiedoston _target/site/checkstyle.html_
 ### Suoritettavan jarin generointi
 
 Generoi suoritettava jar-tiedosto!
