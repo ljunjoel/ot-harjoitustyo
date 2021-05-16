@@ -39,3 +39,15 @@ Tietokannassa on kaksi taulua, joista toinen on nimeltään Users ja toinen Coll
 Taulu Users sisältää kaksi saraketta, ja ne on nimetty, järjestyksessä, Username ja UserPassword. Username on nimetty taulussa uniikiksi sekä taulun primary key:ksi. Tähän tallentuvat kaikki käyttäjät, ja heidän salasanansa.
 
 Taulu Collection sisältää kolme saraketta, ja ne on nimetty, järjestyksessä, CollectibleName, CollectibleQuantity ja CollectibleUser. CollectibleUser on taulussa nimetty foreign key:ksi, joka viittaa taulun Users sarakkeeseen Username. Tähän tallentuvat kaikki esineet, ja ne yksilöidään kuuluvaksi jollekin käyttäjälle.
+
+## Päätoiminnallisuudet
+Muodostetaan sekvenssikaavioiden avulla käsitys siitä, miten ohjelma toimii.
+### Kirjautuminen
+Käyttäjä kirjoittaa kenttiin käyttäjätunnuksensa ja salasanansa. Tämän jälkeen hän painaa login-painiketta. Sovelluksen sisällä kontrolli etenee seuraavasti:
+
+![](https://github.com/ljunjoel/ot-harjoitustyo/blob/master/dokumentaatio/Kuvat/sequencediagram-login.png)
+
+
+Käyttöliittymän login-painikkeen tapahtumakäsittelijä ottaa tehtävän vastaan ja aloittaa ottamalla talteen kenttiin syötetyt tiedot, minkä jälkeen se kutsuu [palveluntarjoajan](https://github.com/ljunjoel/ot-harjoitustyo/blob/master/CollectionHelper/src/main/java/collectionhelper/domain/CollectionHelperService.java) kaikki nimet hakevaa metodia. Tämä taasen kutsuu [käyttäjätotetuksen](https://github.com/ljunjoel/ot-harjoitustyo/blob/master/CollectionHelper/src/main/java/collectionhelper/dao/DatabaseUserDao.java) kaikki nimet hakevaa metodia, joka hakee tietokannasta nimet, ja laittaa ne listaan. Tämä lista kulkeutuu takaisin käyttöliittymälle vastauksia pitkin. Tapahtumakäsittelijä tsekkaa, löytyykö käyttäjänimi listasta. Kun se löytyy, se kutsuu palveluntarjoajan sisäänkirjautumismetodia, jolloin käyttäjätoteutus käy etsimässä kyseisen käyttäjän, palauttaa sen palveluntarjoajalle, joka tarkistaa salasanan ja vastaa käyttöliittymälle true onnistuneeseen kirjautumiseen. Käyttöliittymä putsaa täytetyt kentät ja vaihtaa näkymän käyttönäkymään, ja jää odottamaan seuraavaa syötettä käyttäjältä.
+
+Samankaltaisilla mekanismeilla toimivat myös sekä lisääminen, vähentäminen että hakeminen. Viesti kulkeutuu käyttöliittymältä palveluntarjoajalle, joka kutsuu toteutuksen metodia, mikä aiheuttaa SQL-kyselyn tietokantaan, ja ketjua pitkin palataan takaisin aina käyttöliittymälle asti.
