@@ -10,4 +10,5 @@
 | 13.5. | 11 h | Koodia pukattu. Tietokanta pelittää, vähän testejä kans |
 | 14.5. | 4 h | Dao-puoli kunnossa, seuraavaksi sovelluksen piiriin kaikki |
 | 15.5. | 7 h | Toiminnallisuus kuntoon, dokumentaatiota |
-| Yht. | 44 h 15 min |  |
+| 16.5. | 6 h | Finishing touches |
+| Yht. | 50 h 15 min |  |
