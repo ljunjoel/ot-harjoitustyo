@@ -3,6 +3,8 @@
 # CollectionHelper
 CollectionHelper -sovelluksen avulla käyttäjät voivat pitää kutia omista kokoelmistaan. Olivatpa ne sitten mitä tahansa! (in English below)
 
+Tehtävä toimii myös Helsingin yliopiston tietojenkäsittelytieteen osaston järjestämän kurssin Ohjelmistotekniikka suorituksena.
+
 ## Miten pääsen alkuun?
 Tällä hetkellä ohjelman voi ajaa komentoriviltä komennolla java -jar CollectionHelper.jar, kun releasesta on ladannut tiedostot. Jos haluat ajaa ohjelman ennemmin NetBeans:illa, joutunet käyttämään Clean and Build -toimintoa pariin kertaan ennen kuin ohjelma suostuu suorittamaan.
 
@@ -16,6 +18,8 @@ Haku- sekä Tulosta kaikki -toimintojen tulostukset tulevat konsoliin.
 
 # CollectionHelper (in English)
 CollectionHelper is a software designed to aid with keeping tabs on your collection. Whatever it might be!
+
+CollectionHelper is also my personal course product for the University of Helsinki Department of Computer Science's course "Ohjelmistotekniikka"
 
 ## How do I get started?
 At present the software works by running the java -jar CollectionHelper.jar command from the command prompt after downloading a release. If you would prefer running it from NetBeans you might have to Build and Clean a couple of times before NetBeans decides to cooperate.
@@ -35,6 +39,10 @@ The search and print all functions will print to console.
 [Työaikakirjanpito](https://github.com/ljunjoel/ot-harjoitustyo/blob/master/dokumentaatio/tyoaikakirjanpito.md)
 
 [Käyttöohje](https://github.com/ljunjoel/ot-harjoitustyo/blob/master/dokumentaatio/kayttoohje.md)
+
+[Testausdokumentti](https://github.com/ljunjoel/ot-harjoitustyo/blob/master/dokumentaatio/testaus.md)
+
+[Arkkitehtuurikuvaus](https://github.com/ljunjoel/ot-harjoitustyo/blob/master/dokumentaatio/arkkitehtuuri.md)
 
 ## Releaset
 [Viikko 5](https://github.com/ljunjoel/ot-harjoitustyo/tree/viikko5)
@@ -62,7 +70,7 @@ Tiedosto [checkstyle.xml](https://github.com/ljunjoel/ot-harjoitustyo/blob/maste
  mvn jxr:jxr checkstyle:checkstyle
 ```
 
-Mahdolliset virheilmoitukset selviävät avaamalla selaimella tiedosto _target/site/checkstyle.html_
+Mahdolliset virheet voi käydä tarkistamassa avaamalla selaimella tiedoston _target/site/checkstyle.html_
 ### Suoritettavan jarin generointi
 
 Generoi suoritettava jar-tiedosto!
