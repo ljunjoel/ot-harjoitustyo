@@ -50,4 +50,21 @@ Käyttäjä kirjoittaa kenttiin käyttäjätunnuksensa ja salasanansa. Tämän j
 
 Käyttöliittymän login-painikkeen tapahtumakäsittelijä ottaa tehtävän vastaan ja aloittaa ottamalla talteen kenttiin syötetyt tiedot, minkä jälkeen se kutsuu [palveluntarjoajan](https://github.com/ljunjoel/ot-harjoitustyo/blob/master/CollectionHelper/src/main/java/collectionhelper/domain/CollectionHelperService.java) kaikki nimet hakevaa metodia. Tämä taasen kutsuu [käyttäjätotetuksen](https://github.com/ljunjoel/ot-harjoitustyo/blob/master/CollectionHelper/src/main/java/collectionhelper/dao/DatabaseUserDao.java) kaikki nimet hakevaa metodia, joka hakee tietokannasta nimet, ja laittaa ne listaan. Tämä lista kulkeutuu takaisin käyttöliittymälle vastauksia pitkin. Tapahtumakäsittelijä tsekkaa, löytyykö käyttäjänimi listasta. Kun se löytyy, se kutsuu palveluntarjoajan sisäänkirjautumismetodia, jolloin käyttäjätoteutus käy etsimässä kyseisen käyttäjän, palauttaa sen palveluntarjoajalle, joka tarkistaa salasanan ja vastaa käyttöliittymälle true onnistuneeseen kirjautumiseen. Käyttöliittymä putsaa täytetyt kentät ja vaihtaa näkymän käyttönäkymään, ja jää odottamaan seuraavaa syötettä käyttäjältä.
 
-Samankaltaisilla mekanismeilla toimivat myös sekä lisääminen, vähentäminen että hakeminen. Viesti kulkeutuu käyttöliittymältä palveluntarjoajalle, joka kutsuu toteutuksen metodia, mikä aiheuttaa SQL-kyselyn tietokantaan, ja ketjua pitkin palataan takaisin aina käyttöliittymälle asti.
+Samankaltaisilla mekanismeilla toimivat myös sekä lisääminen, vähentäminen että hakeminen. Viesti kulkeutuu käyttöliittymältä palveluntarjoajalle, joka kutsuu toteutuksen metodia, mikä aiheuttaa SQL-kyselyn tietokantaan, ja ketjua pitkin palataan takaisin aina käyttöliittymälle asti. Lopuksi käyttöliittymä jää aina odottamaan seuraavaa syötettä käyttäjältä.
+
+Käyttäjä haluaa tulostaa kaikki omistamansa artikkelit ja painaa "Print All!" -painiketta. Sovelluksen sisällä kontrolli etenee seuraavasti:
+
+![](https://github.com/ljunjoel/ot-harjoitustyo/blob/master/dokumentaatio/Kuvat/sequencediagram-printall.png)
+
+Painikkeen tapahtumakäsittelijä ottaa viestin vastaan ja etenee muuten edellä kuvatulla tavallaa, mutta lopuksi tulostaa yksi kerrallaan listan esineet määrätyllä asettelulla konsoliin. Konsoliin tulostaminen tapahtuu myös hakua tehdessä, jolloin hakutulokset tulostetaan konsoliin samalla asettelulla kuin kaikkien tulostuksessakin.
+
+Käyttäjä on tehnyt haluamansa muutokset ja haluaa kirjautua ulos. Hän painaa "Logout"-painiketta. Sovelluksen sisällä kontrolli etenee seuraavasti:
+
+![](https://github.com/ljunjoel/ot-harjoitustyo/blob/master/dokumentaatio/Kuvat/sequencediagram-logout.png)
+
+Painikkeen tapahtumakäsittelijä ottaa viestin vastaan, kutsuu palveluntarjoajan uloskirjaamismetodia, putsaa käyttönäkymän kentät ja siirtyy kirjautumisnäkymään. Samankaltaisesti toimii myös käyttäjänluomisnäkymän "Cancel"-painike.
+
+## Ohjelman rakenteeseen jääneet heikkoudet
+Käyttöliittymän on määritelty kokonaan yhteen metodiin. Lisäksi useat virhetilat heittävät konsoliin viestiä, koska niiden käsittelylle ei ole tehty muuta.
+
+DAO-rajapintojen toteutuksiin jäi käsittämätön määrä toisteista koodia, sillä ne ottavat aina yhteyttä tietokantaan itsekseen. Lisäksi niiden käyttämää tietokantaa on mahdotonta muuttaa muuttamatta koodia.
