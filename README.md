@@ -54,6 +54,7 @@ Ohjelman voi ajaa komentoriviltä kommennolla
 ```
 mvn compile exec:java -Dexec.mainClass=collectionhelper.ui.Main
 ```
+Huomaa, että tämä vaatii, että navigoit itsesi CollectionHelper-kansion sisään!
 ### Testaus
 Testit voi suorittaa komennolla
 ```
